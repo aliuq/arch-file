@@ -5,7 +5,7 @@ const Schema = require('./shema.json')
 const { validate } = require('schema-utils')
 const { resolveOptions, execActions } = require('./util')
 
-const PLUGIN_NAME = 'NodeArch'
+const PLUGIN_NAME = 'ArchFile'
 
 // Schema configuration, Make it stand out when it's wrong.
 const configuration = {
@@ -41,7 +41,7 @@ const logger = debug => {
   }
 }
 
-class NodeArch {
+class ArchFile {
 
   constructor(sources = {}, debug = false) {
     if (typeof sources === 'boolean') {
@@ -107,4 +107,4 @@ class NodeArch {
   }
 }
 
-module.exports = NodeArch
+module.exports = ArchFile

@@ -1,11 +1,11 @@
-# 🚀 Welcome to node-arch!
+# 🚀 Welcome to arch-file!
 
 ## Install
 
 ```shell
-$ npm install node-arch --save
+$ npm install arch-file --save
 # or
-$ npm i node-arch --save
+$ npm i arch-file --save
 ```
 
 ## Usage
@@ -13,7 +13,7 @@ $ npm i node-arch --save
 ### normal
 
 ```js
-const NodeArch = require('node-arch')
+const NodeArch = require('arch-file')
 const arch = new NodeArch()
 arch.run()
 ```
@@ -21,7 +21,7 @@ arch.run()
 ### webpack
 
 ```js
-const NodeArch = require('node-arch')
+const NodeArch = require('arch-file')
 module.exports = {
   plugins: [
     new NodeArch()
@@ -95,7 +95,7 @@ DEFAULT_OPTION = {
 
 1. archive all files under the `example` directory and output to `example`.
 ```js
-const NodeArch = require('node-arch')
+const NodeArch = require('arch-file')
 const options = {
   output: './example/scene1.zip',
   cwd: './example'
@@ -106,7 +106,7 @@ arch.run(options)
 
 2. archive `example` directory\`s all files and output to `example`, exclude `.js` and `demo1` directory.
 ```js
-const NodeArch = require('node-arch')
+const NodeArch = require('arch-file')
 const options = {
   output: './example/scene2.zip',
   cwd: './example',
@@ -118,7 +118,7 @@ arch.run(options)
 
 3. archive `example/demo1` directory\`s files to `example1` and archive `example/demo2` directory\`s files to `example2`.
 ```js
-const NodeArch = require('node-arch')
+const NodeArch = require('arch-file')
 const options = {
   output: './example/scene3.zip',
   sources: [
@@ -132,7 +132,7 @@ arch.run(options)
 
 4. archive `example/demo1` directory\`s files and `example/*.md` files and output to `example/example_demo1.zip. archive  `example/demo2` directory\`s files and `example/*.js` to `example/example_demo2.zip`.
 ```js
-const NodeArch = require('node-arch')
+const NodeArch = require('arch-file')
 const options = [
   {
     output: './example/example_demo1.zip',
@@ -155,7 +155,7 @@ arch.run(options)
 
 5. in webpack, archive project\`s all source files to `output.path/scene5.zip`
 ```js
-const NodeArch = require('node-arch')
+const NodeArch = require('arch-file')
 module.exports = {
   plugins: [
     new NodeArch({
