@@ -1,7 +1,7 @@
 {
   "name": "arch-file",
   "version": "0.0.3",
-  "description": "",
+  "description": "node archive file package",
   "main": "lib/index.js",
   "directories": {
     "example": "example"
