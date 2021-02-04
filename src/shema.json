@@ -1,0 +1,120 @@
+{
+	"definitions": {
+		"pattern": {
+			"$id": "#pattern",
+			"description": "pattern to search for",
+			"type": "string"
+		},
+		"cwd": {
+			"$id": "#cwd",
+			"description": "The current working directory in which to search. Defaults to process.cwd().",
+			"type": "string"
+		},
+		"ignore": {
+			"$id": "#ignore",
+			"description": "Add a pattern or an array of glob patterns to exclude matches.",
+			"anyOf": [
+				{
+					"type": "string"
+				},
+				{
+					"type": "array",
+					"items": {
+						"description": "A pattern string",
+						"type": "string"
+					}
+				}
+			]
+		},
+		"prefix": {
+			"$id": "#prefix",
+			"description": "prefix directory",
+			"type": "string"
+		},
+		"globOption": {
+			"$id": "#globOption",
+			"description": "glob another option",
+			"type": "object"
+		},
+		"source": {
+			"description": "source file",
+			"type": "object",
+			"properties": {
+				"pattern": {
+					"$ref": "#pattern"
+				},
+				"cwd": {
+					"$ref": "#cwd"
+				},
+				"ignore": {
+					"$ref": "#ignore"
+				},
+				"prefix": {
+					"$ref": "#prefix"
+				},
+				"globOption": {
+					"$ref": "#globOption"
+				}
+			}
+		},
+		"output": {
+			"$id": "#output",
+			"description": "The destination file path.",
+			"anyOf": [
+				{
+					"type": "string",
+					"minLength": 1
+				},
+				{
+					"type": "object",
+					"properties": {
+						"path": {
+							"type": "string"
+						},
+						"filename": {
+							"type": "string"
+						}
+					}
+				}
+			]
+		}
+	},
+	"type": "object",
+	"additionalProperties": false,
+	"properties": {
+		"context": {
+			"type": "string"
+		},
+		"pattern": {
+			"$ref": "#pattern"
+		},
+		"cwd": {
+			"$ref": "#cwd"
+		},
+		"ignore": {
+			"$ref": "#ignore"
+		},
+		"prefix": {
+			"$ref": "#prefix"
+		},
+		"globOption": {
+			"$ref": "#globOption"
+		},
+		"archiverOption": {
+			"description": "archiver option",
+			"type": "object"
+		},
+		"source": {
+			"$ref": "#/definitions/source"
+		},
+		"sources": {
+			"type": "array",
+			"items": {
+				"$ref": "#/definitions/source"
+			}
+		},
+		"output": {
+			"$ref": "#output"
+		}
+	}
+}
