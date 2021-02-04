@@ -27,7 +27,15 @@
     "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["archive"],
+  "author": "linka",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liuqian1996/arch-file.git"
+  },
+  "bugs": {
+    "url": "https://github.com/liuqian1996/arch-file/issues"
+  },
+  "homepage": "https://github.com/liuqian1996/arch-file#readme",
   "license": "ISC"
 }
