@@ -33,11 +33,11 @@
   "author": "linka",
   "repository": {
     "type": "git",
-    "url": "https://github.com/liuqian1996/arch-file.git"
+    "url": "https://github.com/aliuq/arch-file.git"
   },
   "bugs": {
-    "url": "https://github.com/liuqian1996/arch-file/issues"
+    "url": "https://github.com/aliuq/arch-file/issues"
   },
-  "homepage": "https://github.com/liuqian1996/arch-file#readme",
+  "homepage": "https://github.com/aliuq/arch-file#readme",
   "license": "ISC"
 }
