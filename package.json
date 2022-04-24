@@ -11,10 +11,7 @@
   ],
   "license": "MIT",
   "author": "liuq",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aliuq/suzip.git"
-  },
+  "repository": "https://github.com/aliuq/suzip.git",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
