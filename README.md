@@ -1,4 +1,4 @@
-# 🚀 Welcome to arch-file!
+# 🚀 Welcome to arch-file
 
 ## Install
 
@@ -46,7 +46,7 @@ module.exports = {
 + `globOption` `{object}` used node-archiver, [glob option](https://github.com/isaacs/node-glob#options)
 + `archiverOption` `{object}` archiver option [see more](https://www.archiverjs.com/archiver).
 + `source` `{object}` the same as outer\`s property, if provided, will override outer\`s value.
-  + `pattern` `{string}` `**/*` 
+  + `pattern` `{string}` `**/*`
   + `cwd` `{string}` `__dirname`
   + `ignore` `{string|array}`
   + `prefix` `{string}` `/`
@@ -70,7 +70,6 @@ DEFAULT_OPTION = {
     globOption: {}
   }
 }
-
 ```
 
 **Webpack**
@@ -90,10 +89,10 @@ DEFAULT_OPTION = {
 }
 ```
 
-
 ## Scenes
 
 1. archive all files under the `example` directory and output to `example`.
+
 ```js
 const NodeArch = require('arch-file')
 const options = {
@@ -105,6 +104,7 @@ arch.run(options)
 ```
 
 2. archive `example` directory\`s all files and output to `example`, exclude `.js` and `demo1` directory.
+
 ```js
 const NodeArch = require('arch-file')
 const options = {
@@ -117,6 +117,7 @@ arch.run(options)
 ```
 
 3. archive `example/demo1` directory\`s files to `example1` and archive `example/demo2` directory\`s files to `example2`.
+
 ```js
 const NodeArch = require('arch-file')
 const options = {
@@ -130,7 +131,8 @@ const arch = new NodeArch()
 arch.run(options)
 ```
 
-4. archive `example/demo1` directory\`s files and `example/*.md` files and output to `example/example_demo1.zip. archive  `example/demo2` directory\`s files and `example/*.js` to `example/example_demo2.zip`.
+4. archive `example/demo1` directory\`s files and `example/*.md` files and output to `example/example_demo1.zip. archive`example/demo2`directory\`s files and `example/*.js` to `example/example_demo2.zip`.
+
 ```js
 const NodeArch = require('arch-file')
 const options = [
@@ -154,6 +156,7 @@ arch.run(options)
 ```
 
 5. in webpack, archive project\`s all source files to `output.path/scene5.zip`
+
 ```js
 const NodeArch = require('arch-file')
 module.exports = {

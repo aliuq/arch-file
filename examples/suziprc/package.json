@@ -1,0 +1,12 @@
+{
+  "name": "suziprc",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "suzip -h",
+    "zip": "suzip"
+  },
+  "dependencies": {
+    "suzip": "workspace:^0.0.3"
+  }
+}

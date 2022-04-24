@@ -1,0 +1,8 @@
+{
+  "i18n-ally.localesPaths": "locales",
+  "i18n-ally.regex.key": ".*?",
+  "i18n-ally.enabledFrameworks": [
+    "custom"
+  ],
+  "i18n-ally.keystyle": "nested"
+}

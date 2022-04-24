@@ -1,43 +1,65 @@
 {
-  "name": "arch-file",
+  "name": "suzip",
   "version": "0.0.3",
-  "description": "node archive file package",
-  "main": "lib/index.js",
-  "directories": {
-    "example": "example"
-  },
-  "files": [
-    "lib"
+  "description": "archive file package",
+  "keywords": [
+    "suzip",
+    "archive",
+    "archiver",
+    "zip",
+    "gzip"
   ],
+  "license": "MIT",
+  "author": "liuq",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aliuq/arch-file.git"
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "locales",
+    "dist",
+    "bin",
+    "*.d.ts"
+  ],
+  "bin": {
+    "suzip": "./bin/suzip.js"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "dev": "esno src/index.ts",
+    "dev:cli": "esno src/cli/index.ts",
+    "build": "unbuild",
+    "lint": "eslint .",
+    "test": "node bin/suzip.js -h",
+    "prepublishOnly": "npm run build",
+    "release": "npx bumpp --push --tag --commit"
+  },
   "dependencies": {
     "archiver": "^5.1.0",
     "byte-size": "^7.0.0",
-    "chalk": "^4.1.0",
     "fs-extra": "^9.0.1",
+    "kolorist": "^1.5.1",
     "lodash": "^4.17.20",
-    "schema-utils": "^3.0.0"
+    "y18n": "^5.0.8",
+    "find-up": "^6.3.0",
+    "yargs": "^17.4.1"
   },
   "devDependencies": {
-    "clean-webpack-plugin": "^3.0.0",
-    "terser-webpack-plugin": "^5.0.3",
-    "webpack": "^5.11.1",
-    "webpack-cli": "^4.3.1"
+    "@aliuq/eslint-config": "^0.0.2",
+    "@types/fs-extra": "^9.0.13",
+    "@types/glob": "^7.2.0",
+    "@types/lodash-es": "^4.17.6",
+    "@types/yargs": "^17.0.10",
+    "eslint": "^8.13.0",
+    "esno": "^0.14.1",
+    "unbuild": "^0.7.4"
   },
-  "scripts": {
-    "build": "webpack",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "archive"
-  ],
-  "author": "linka",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/liuqian1996/arch-file.git"
-  },
-  "bugs": {
-    "url": "https://github.com/liuqian1996/arch-file/issues"
-  },
-  "homepage": "https://github.com/liuqian1996/arch-file#readme",
-  "license": "ISC"
+  "bugs": "https://github.com/aliuq/arch-file/issues",
+  "homepage": "https://github.com/aliuq/arch-file",
+  "engines": {
+    "node": ">=14.0.0"
+  }
 }

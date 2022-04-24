@@ -1,0 +1,8 @@
+{
+  "zip": {
+    "output": "./.output/source.json",
+    "cwd": "./",
+    "ignoreFile": "./.gitignore",
+    "dot": true
+  }
+}

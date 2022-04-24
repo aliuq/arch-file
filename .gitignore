@@ -1,3 +1,13 @@
-__test__
-node_modules
-lib
+.git/**
+__test__/**
+test/**
+**/node_modules/**
+lib/**
+dist/**
+note.md
+*.zip
+*.tar.gz
+*.tar
+**/.output/**
+.output.json
+**/*.log

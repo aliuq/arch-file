@@ -1,0 +1,51 @@
+{
+  "zip": [
+    {
+      "output": "./.output/assets.zip",
+      "context": "../assets",
+      "cwd": "."
+    },
+    {
+      "output": "./.output/dist.zip",
+      "cwd": "../assets"
+    },
+    {
+      "output": "./.output/dist.tar",
+      "cwd": "../assets"
+    },
+    {
+      "output": "./.output/dist.tar.gz",
+      "cwd": "../assets"
+    },
+    {
+      "output": "./.output/dist_separate_md_js.zip",
+      "sources": [
+        {
+          "cwd": "../assets",
+          "pattern": "**/*.md",
+          "prefix": "markdown_file"
+        },
+        {
+          "cwd": "../assets",
+          "pattern": "**/*.js",
+          "prefix": "javascript_file"
+        }
+      ]
+    },
+    {
+      "output": "./.output/dist_separate_a_b.zip",
+      "sources": [
+        {
+          "cwd": "../assets",
+          "pattern": "**/*a*.*",
+          "prefix": "name_a"
+        },
+        {
+          "cwd": "../assets",
+          "pattern": "**/b.*",
+          "prefix": "name_b"
+        }
+      ]
+    }
+  ]
+}
