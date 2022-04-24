@@ -13,7 +13,7 @@
   "author": "liuq",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aliuq/arch-file.git"
+    "url": "https://github.com/aliuq/suzip.git"
   },
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
@@ -57,8 +57,8 @@
     "esno": "^0.14.1",
     "unbuild": "^0.7.4"
   },
-  "bugs": "https://github.com/aliuq/arch-file/issues",
-  "homepage": "https://github.com/aliuq/arch-file",
+  "bugs": "https://github.com/aliuq/suzip/issues",
+  "homepage": "https://github.com/aliuq/suzip",
   "engines": {
     "node": ">=14.0.0"
   }
