@@ -11,9 +11,9 @@ import type { ArchiveOption, ArchiverTarOptions, ArchiverZipOptions, Format, Opt
 import { getAbsPath, log, slash } from './util'
 
 // Execute archive action
-export async function archive(options: Option | Option[]) {
+export async function zip(options: Option | Option[]) {
   const archiveOptions = await resolveOptions(options)
-  archiveOptions.map(async(option) => {
+  await Promise.all(archiveOptions.map(async(option) => {
     // eslint-disable-next-line no-async-promise-executor
     return new Promise(async(resolve, reject) => {
       const { format, path: outputPath, filename, sources, archiverOption } = option
@@ -48,10 +48,10 @@ export async function archive(options: Option | Option[]) {
 
       await archive.finalize()
     })
-  })
+  }))
 }
 
-export function resolveOptions(options: Option | Option[]): Promise<ArchiveOption[]> {
+function resolveOptions(options: Option | Option[]): Promise<ArchiveOption[]> {
   options = Array.isArray(options) ? options : [options]
   const sourceAttr = ['pattern', 'cwd', 'ignore', 'ignoreFile', 'prefix', 'dot', 'globOption', 'globEntryData']
   // Priority: In Source > Out Source > Default

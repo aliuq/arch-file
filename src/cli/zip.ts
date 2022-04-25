@@ -10,7 +10,7 @@ import { pick } from 'lodash'
 import { red } from 'kolorist'
 import type { Option } from '../types'
 import y18n from '../y18n'
-import { archive } from '../archive'
+import { zip } from '../archive'
 
 const { __ } = y18n()
 
@@ -90,13 +90,13 @@ const Zip: CommandModule<{}, ZipOption> = {
     }
 
     if (argv.zip) {
-      await archive(argv.zip)
+      await zip(argv.zip)
       return
     }
 
     const options: ZipOption = pick(argv, ['context', 'pattern', 'cwd', 'ignore', 'ignoreFile', 'output', 'dot'])
     if (options.cwd && options.output) {
-      await archive(options)
+      await zip(options)
       return
     }
 
