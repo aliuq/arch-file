@@ -110,9 +110,3 @@ export interface ArchiveOption {
   filename: string
   archiverOption: ArchiverZipOptions | ArchiverTarOptions
 }
-
-export interface ParseArgs {
-  maps?: Record<string, any>
-  start?: number
-  serialize?: (value: any, key: string) => any
-}
