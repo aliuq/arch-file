@@ -1,6 +1,15 @@
-# SUZIP
+<!-- markdownlint-disable no-inline-html -->
+<h1 align='center'>SUZIP</h1>
 
-一个简单好用的文件压缩工具
+<p align="center">
+  <a href="./README.md">English</a>&nbsp;&nbsp;|&nbsp;&nbsp;中文
+  <br />
+  <br />
+  <samp>一个简单好用的文件压缩工具</samp>
+  <br />
+  <br />
+  <img src="https://img.shields.io/npm/v/suzip" alt="version">
+</p>
 
 ## 功能
 

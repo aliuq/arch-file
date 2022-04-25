@@ -1,6 +1,15 @@
-# SUZIP
+<!-- markdownlint-disable no-inline-html -->
+<h1 align='center'>SUZIP</h1>
 
-A simple and easy-to-use file compression tool
+<p align="center">
+  English&nbsp;&nbsp;|&nbsp;&nbsp;<a href="./README_ZH.md">中文</a>
+  <br />
+  <br />
+  <samp>A simple and easy-to-use file compression tool</samp>
+  <br />
+  <br />
+  <img src="https://img.shields.io/npm/v/suzip" alt="version">
+</p>
 
 ## Features
 
@@ -81,4 +90,3 @@ suzip is based on the original `arch-file` refactoring and renaming, using types
 ## License
 
 [MIT](./LICENSE)
-
