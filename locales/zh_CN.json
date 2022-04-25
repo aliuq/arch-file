@@ -1,6 +1,18 @@
 {
   "Compression files or directories": "压缩文件或目录",
+  "Example 1": "1.压缩src目录下的所有文件到.output/dist.zip文件中",
+  "Example 2": "2.压缩当前目录下所有除了node_modules和dist目录的文件到.output/dist.zip文件中",
+  "Example 3": "3.指定ignore文件,压缩除匹配到的其他所有文件到.output/dist.zip文件中,注意,ignore文件中的规则需要补全,比如`node_modules`需要调整为`node_modules/**`",
+  "File path to ignore output": "忽略输出的文件路径",
+  "Include dot files": "包含以.符号开头的文件",
   "Input Sources (only one can be specified)": "输入源（只能指定一个）",
+  "Only one input source can be specified": "仅支持指定一个输入源",
+  "Only one output file can be specified": "仅支持指定一个输出文件",
+  "Output File Path": "输出文件的位置",
+  "Please specify the input source and output file": "请指定输入源和输出文件路径",
+  "Regular expression matching input source file": "匹配输入源文件的正则表达式",
+  "Regular expression to ignore output": "忽略输出文件的正则表达式",
+  "Show examples": "显示示例",
   "Working directory path, default to current directory": "工作目录路径，默认为当前目录",
-  "Output File Path": "Output File Path"
+  "Zip option attribute in package-json file": "package.json文件中的zip选项属性"
 }

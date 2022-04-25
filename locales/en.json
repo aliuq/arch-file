@@ -1,0 +1,19 @@
+{
+  "Compression files or directories": "Compression files or directories",
+  "Example 1": "1.Compress all files in the src directory into the .output/dist.zip file",
+  "Example 2": "2.Compress all files in the current directory except node_modules and dist into a .output/dist.zip file",
+  "Example 3": "3.Specify the ignore file to compress all files except the matched ones into the .output/dist.zip file, note that the rules in the ignore file need to be completed, for example, `node_modules` needs to be adjusted to `node_modules/**`.",
+  "File path to ignore output": "File path to ignore output",
+  "Include dot files": "Include files starting with the . symbol",
+  "Input Sources (only one can be specified)": "Input Sources (only one can be specified)",
+  "Only one input source can be specified": "Only supports specifying one input source",
+  "Only one output file can be specified": "Only one output file can be specified",
+  "Output File Path": "Output File Path",
+  "Please specify the input source and output file": "Please specify the input source and output file",
+  "Regular expression matching input source file": "Regular expression matching input source file",
+  "Regular expression to ignore output": "Regular expression to ignore output",
+  "Show examples": "Show examples",
+  "Working directory path, default to current directory": "Working directory path, default to current directory",
+  "Zip option attribute in package-json file": "Zip option attribute in package.json file"
+}
+

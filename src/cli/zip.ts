@@ -50,16 +50,16 @@ const options: Record<'zip' & 'example' & keyof ZipOption, Options> = {
   pattern: {
     alias: 'p',
     string: true,
-    describe: 'Regular expression matching input source file',
+    describe: __`Regular expression matching input source file`,
   },
   ignore: {
     alias: 'i',
-    describe: 'Regular expression to ignore output',
+    describe: __`Regular expression to ignore output`,
     array: true,
   },
   ignoreFile: {
     alias: 'I',
-    describe: 'File path to ignore output',
+    describe: __`File path to ignore output`,
     string: true,
   },
   dot: {
@@ -67,7 +67,7 @@ const options: Record<'zip' & 'example' & keyof ZipOption, Options> = {
     boolean: true,
   },
   zip: {
-    describe: __`Zip option attribute in package.json file`,
+    describe: __`Zip option attribute in package-json file`,
     conflicts: ['cwd', 'context', 'pattern', 'ignore', 'output', 'dot'],
   },
   example: {
@@ -114,15 +114,15 @@ function generateExamples(): string[][] {
   const _ = (arr: string[]) => `${arr.join('\n\n')}\n`
   return [
     [_([
-      '1.压缩src目录下的所有文件到.output/dist.zip文件中',
+      __`Example 1`,
       'suzip -s ./src -o ./.output/dist.zip'],
     )],
     [_([
-      '2.压缩当前目录下所有除了node_modules和dist目录的文件到.output/dist.zip文件中',
+      __`Example 2`,
       'suzip -s ./ -o ./.output/dist.zip -i node_modules/** dist/**',
     ])],
     [_([
-      '3.指定ignore文件,压缩除匹配到的其他所有文件到.output/dist.zip文件中,注意,ignore文件中的规则需要补全,比如`node_modules`需要调整为`node_modules/**',
+      __`Example 3`,
       'suzip -s ./ -o ./.output/dist.zip -I ./.gitignore --dot',
     ])],
   ]

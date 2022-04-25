@@ -16,7 +16,7 @@ usageMatchRegex:
   # the `{key}` will be placed by a proper keypath matching regex,
   # you can ignore it and use your own matching rules as well
   # __`demo` or __('demo') __("demo")
-  - '__n?\(?[''"`]({key})[''"`]'
+  - '__n?\(?[`''"]({key})[`''"]\)?'
 
 # An array of strings containing refactor templates.
 # The "$1" will be replaced by the keypath specified.

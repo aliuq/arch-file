@@ -34,10 +34,10 @@ Node
 import { zip } from 'suzip'
 
 zip({
- cwd: './',
- output: './.output/dist.zip',
- ignore: ['node_modules/**', '.output/**', 'dist/**'],
- dot: true,
+  cwd: './',
+  output: './.output/dist.zip',
+  ignore: ['node_modules/**', '.output/**', 'dist/**'],
+  dot: true,
 })
 ```
 

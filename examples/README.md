@@ -8,14 +8,16 @@
 Basic
 
 ```json
-"scripts": {
- "dev": "suzip -h",
- "zip": "suzip -s ../assets -o ./.output/dist.zip",
- "tar": "suzip -s ../assets -o ./.output/dist.tar",
- "tar:gz": "suzip -s ../assets -o ./.output/dist.tar.gz",
- "zip:2": "suzip -s ../assets -p **/*.md -o ./.output/dist_md.zip",
- "zip:3": "suzip -s ../assets -i **/*.js -o ./.output/dist_ignore_js.zip",
- "zip:4": "esno src/main.ts"
+{
+ "scripts": {
+  "dev": "suzip -h",
+  "zip": "suzip -s ../assets -o ./.output/dist.zip",
+  "tar": "suzip -s ../assets -o ./.output/dist.tar",
+  "tar:gz": "suzip -s ../assets -o ./.output/dist.tar.gz",
+  "zip:2": "suzip -s ../assets -p **/*.md -o ./.output/dist_md.zip",
+  "zip:3": "suzip -s ../assets -i **/*.js -o ./.output/dist_ignore_js.zip",
+  "zip:4": "esno src/main.ts"
+ }
 }
 ```
 

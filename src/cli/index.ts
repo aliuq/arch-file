@@ -7,7 +7,7 @@ import y18n from '../y18n'
 import { bugs, name, version } from '../../package.json'
 import zip from './zip'
 
-(async() => {
+(async () => {
   const { __ } = y18n()
   let config
   let configPath

@@ -13,9 +13,9 @@ import { getAbsPath, log, slash } from './util'
 // Execute archive action
 export async function zip(options: Option | Option[]) {
   const archiveOptions = await resolveOptions(options)
-  await Promise.all(archiveOptions.map(async(option) => {
+  await Promise.all(archiveOptions.map(async (option) => {
     // eslint-disable-next-line no-async-promise-executor
-    return new Promise(async(resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       const { format, path: outputPath, filename, sources, archiverOption } = option
       // Check output path
       await fs.ensureDir(outputPath)
@@ -41,7 +41,7 @@ export async function zip(options: Option | Option[]) {
 
       archive.pipe(output)
 
-      await Promise.all(sources.map(async(source: any) => {
+      await Promise.all(sources.map(async (source: any) => {
         const { pattern, globOption, globEntryData } = source
         await archive.glob(pattern, globOption, globEntryData)
       }))
@@ -56,7 +56,7 @@ function resolveOptions(options: Option | Option[]): Promise<ArchiveOption[]> {
   const sourceAttr = ['pattern', 'cwd', 'ignore', 'ignoreFile', 'prefix', 'dot', 'globOption', 'globEntryData']
   // Priority: In Source > Out Source > Default
   // Iterate over the options and rebuild the options
-  return Promise.all(options.map(async(option: Option) => {
+  return Promise.all(options.map(async (option: Option) => {
     const { source = {}, sources = [] } = option
     // Root for resolve output path
     const context = getAbsPath(option.context || process.cwd(), process.cwd())
@@ -73,7 +73,7 @@ function resolveOptions(options: Option | Option[]): Promise<ArchiveOption[]> {
     // Through file name to get the format and default archiver option
     const { format, archiverOption } = resolveFormat(filename)
     const outSource = pick(option, sourceAttr)
-    const mergeSources: Source[] = await Promise.all((sources.length ? sources : [source]).map(async(inSource = {}) => {
+    const mergeSources: Source[] = await Promise.all((sources.length ? sources : [source]).map(async (inSource = {}) => {
       const mergeSource = merge({
         pattern: '**/*',
         cwd: __dirname,
