@@ -41,9 +41,12 @@ importers:
 
   examples/basic:
     specifiers:
-      suzip: workspace:^0.0.3
+      esno: ^0.14.1
+      suzip: workspace:*
     dependencies:
       suzip: link:../..
+    devDependencies:
+      esno: 0.14.1
 
   examples/pkg:
     specifiers:
