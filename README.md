@@ -8,7 +8,10 @@
   <samp>A simple and easy-to-use file compression tool</samp>
   <br />
   <br />
+  <img src="https://img.shields.io/npm/l/suzip" alt="license">
+  <img src="https://img.shields.io/github/workflow/status/aliuq/suzip/Release" alt="build">
   <img src="https://img.shields.io/npm/v/suzip" alt="version">
+  <img src="https://img.shields.io/npm/dw/suzip" alt="download">
 </p>
 
 ## Features
