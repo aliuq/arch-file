@@ -70,7 +70,7 @@ export interface Source {
    */
   cwd?: string
   /** pattern to search for */
-  pattern?: string
+  pattern?: string | string[]
   /** Add a pattern or an array of glob patterns to exclude matches. */
   ignore?: string | string[]
   /** ignore file, likes `.gitignore` */
@@ -88,7 +88,7 @@ export interface Source {
    * @see node-readdir-glob / https://github.com/yqnn/node-readdir-glob#options
    * @see node-glob / https://github.com/isaacs/node-glob#options
    */
-  globOption?: IOptions
+  globOption?: IOptions | Record<string, any>
   /** The entry data object */
   globEntryData?: EntryData & EntryZipData
 }

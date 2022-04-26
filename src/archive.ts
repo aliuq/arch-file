@@ -58,13 +58,18 @@ async function archive(option: ArchiveOption) {
     })
 
     archive.on('entry', (entry: Record<string, any>) => {
-      files.push({ name: slash(entry.name), source: slash(entry.sourcePath), size: entry.stats.size })
+      files.push({
+        name: slash(entry.name),
+        source: slash(entry.sourcePath),
+        size: entry.stats.size,
+      })
     })
 
     archive.on('progress', async (entry: Record<string, any>) => {
       const currIndex = entry.entries.processed - 1
       const file = files[currIndex]
-      logger.debugNormal(`${dim(currIndex + 1)} ${green(file.source)}  ${dim(byteSize(file.size))}`)
+      const size = byteSize(file.size)
+      logger.debugNormal(`${dim(currIndex + 1)} ${green(file.source)} [${dim(size.value + size.unit)}] ${dim(file.name)}`)
     })
 
     archive.on('error', (err: Error) => {
@@ -78,9 +83,13 @@ async function archive(option: ArchiveOption) {
 
     archive.pipe(output)
 
-    await Promise.all(sources.map(async (source: any) => {
+    await Promise.all(sources.map(async (source: Source) => {
       const { pattern, globOption, globEntryData } = source
-      await archive.glob(pattern, globOption, globEntryData)
+      const [defaultPattern, anotherPattern] = pattern as string[]
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { ignore, ...anotherGlobOption } = globOption as Record<string, any>
+      await archive.glob(defaultPattern, globOption, globEntryData)
+      anotherPattern && await archive.glob(anotherPattern, anotherGlobOption, globEntryData)
     }))
 
     await archive.finalize()
@@ -121,9 +130,9 @@ function resolveOptions(options: Option | Option[]): Promise<ArchiveOption[]> {
       }, outSource, inSource)
       // Absolute cwd path
       mergeSource.cwd = getAbsPath(mergeSource.cwd, context)
-      const ignore = await resolveIgnore(mergeSource, { path: _path, filename })
+      const { ignore, pattern } = await resolveIgnore(mergeSource, { path: _path, filename })
       return {
-        pattern: mergeSource.pattern,
+        pattern: pattern.length ? [mergeSource.pattern, pattern] : [mergeSource.pattern],
         globOption: {
           ...mergeSource.globOption,
           ignore: ignore as string[],
@@ -184,9 +193,10 @@ async function resolveIgnore(source: Source, option: { path: string; filename: s
   const dest = slash(path.join(outputPath, filename))
 
   let _ignore = (Array.isArray(ignore) ? ignore : [ignore]).filter(ig => !!ig)
+  let bPattern = []
 
   if (dot)
-    _ignore.push('.git')
+    _ignore.push('.git/**')
 
   if (typeof ignoreFile !== 'undefined' && ignoreFile) {
     const ignoreFilePath = getAbsPath(
@@ -197,17 +207,25 @@ async function resolveIgnore(source: Source, option: { path: string; filename: s
     if (exist) {
       const ignoreFileContent = await fs.readFile(ignoreFilePath, 'utf-8')
       const ignoreFile = ignoreFileContent.split(/\r?\n/)
-      _ignore = _ignore.concat(ignoreFile)
+      const ignoreFileGlob = gitignoreToGlob(ignoreFile)
+      const [_bPattern, bIgnore] = bifurcate(ignoreFileGlob, (ig: string) => ig.startsWith('!'))
+      bPattern = _bPattern.map((p: string) => p.substring(1))
+      _ignore = _ignore.concat(bIgnore)
     }
   }
 
   // Auto complete '**' in prefix and suffix
-  _ignore = gitignoreToGlob(_ignore as string[])
+  // _ignore = gitignoreToGlob(_ignore as string[])
 
   if (dest.startsWith(cwd as string))
     _ignore = _ignore.concat((dest.split(cwd as string))[1])
 
-  return _ignore
+  // const [bPatter, bIgnore] = bifurcate(_ignore, (ig: string) => ig.startsWith('!'))
+
+  return {
+    ignore: _ignore,
+    pattern: bPattern,
+  }
 }
 
 function gitignoreToGlob(ignorePathArray: string[]) {
@@ -231,9 +249,16 @@ function gitignoreToGlob(ignorePathArray: string[]) {
     .reduce((result, patternPair) => {
       const pattern = patternPair.join('')
       result.push(pattern)
-      result.push(pattern.endsWith('**') ? pattern : `${pattern}/**`)
+      result.push(pattern.endsWith('*') ? pattern : `${pattern}/**`)
       return result
     }, [])))
+}
+
+function bifurcate(arr: any[], filter: Function) {
+  return arr.reduce((acc, val, i) => {
+    acc[filter(val, i) ? 0 : 1].push(val)
+    return acc
+  }, [[], []])
 }
 
 declare global {
