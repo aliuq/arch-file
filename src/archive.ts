@@ -1,9 +1,9 @@
 import path from 'path'
 import fs from 'fs-extra'
 import { merge, pick } from 'lodash'
-// @ts-expect-error global
+// @ts-expect-error No type declaration
 import archiver from 'archiver'
-// @ts-expect-error global
+// @ts-expect-error No type declaration
 import byteSize from 'byte-size'
 import { green } from 'kolorist'
 import type { ArchiveOption, ArchiverTarOptions, ArchiverZipOptions, Format, Option, Source } from './types'
@@ -142,22 +142,59 @@ function resolveFormat(filename: string) {
  */
 async function resolveIgnore(source: Source, option: { path: string; filename: string }) {
   const { path: outputPath, filename } = option
-  const { cwd, ignore, ignoreFile } = source
+  const { cwd, ignore, ignoreFile, dot } = source
 
-  const dest = path.join(outputPath, filename)
+  const dest = slash(path.join(outputPath, filename))
 
   let _ignore = (Array.isArray(ignore) ? ignore : [ignore]).filter(ig => !!ig)
-  if (dest.startsWith(cwd + path.sep))
-    _ignore = _ignore.concat((dest.split(cwd + path.sep))[1])
+
+  if (dot)
+    _ignore.push('.git')
 
   if (typeof ignoreFile !== 'undefined' && ignoreFile) {
-    const ignoreFilePath = getAbsPath(typeof ignoreFile === 'string' ? ignoreFile : '.gitignore', cwd as string)
+    const ignoreFilePath = getAbsPath(
+      typeof ignoreFile === 'string' ? ignoreFile : '.gitignore',
+      cwd as string,
+    )
     const exist = await fs.pathExists(ignoreFilePath)
     if (exist) {
       const ignoreFileContent = await fs.readFile(ignoreFilePath, 'utf-8')
-      _ignore = _ignore.concat(ignoreFileContent.split('\r\n').filter(ig => !!ig))
+      const ignoreFile = ignoreFileContent.split(/\r?\n/)
+      _ignore = _ignore.concat(ignoreFile)
     }
   }
 
+  // Auto complete '**' in prefix and suffix
+  _ignore = gitignoreToGlob(_ignore as string[])
+
+  if (dest.startsWith(cwd as string))
+    _ignore = _ignore.concat((dest.split(cwd as string))[1])
+
   return _ignore
+}
+
+function gitignoreToGlob(ignorePathArray: string[]) {
+  return Array.from(new Set(ignorePathArray
+    // Filter out empty lines and comments.
+    .filter(pattern => !!pattern && pattern[0] !== '#')
+    // Split '!' and pattern.
+    .map(pattern => pattern[0] === '!' ? ['!', pattern.substring(1)] : ['', pattern])
+    // Add prefix '**' to every valid pattern.
+    .map((patternPair) => {
+      const pattern = patternPair[1]
+      if (pattern[0] !== '/') {
+        return [
+          patternPair[0],
+          pattern.startsWith('**') ? pattern : `**/${pattern}`,
+        ]
+      }
+      return [patternPair[0], pattern.substring(1)]
+    })
+    // Add suffix '**' to every valid pattern.
+    .reduce((result, patternPair) => {
+      const pattern = patternPair.join('')
+      result.push(pattern)
+      result.push(pattern.endsWith('**') ? pattern : `${pattern}/**`)
+      return result
+    }, [])))
 }
