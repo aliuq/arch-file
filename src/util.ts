@@ -107,7 +107,7 @@ function pretterInfo(data: any, opts: PretterOptions) {
   else if (typeof data === 'object') {
     const keys = Object.keys(data)
     if (!keys.length) {
-      console.log(`${gray(opts.title)}: ${data}`)
+      console.log(`${gray(opts.title)}: ${JSON.stringify(data)}`)
     }
     else {
       if (!root)
