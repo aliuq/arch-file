@@ -1,0 +1,4 @@
+src
+!src/main.ts
+.output
+node_modules

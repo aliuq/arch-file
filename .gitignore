@@ -9,5 +9,4 @@ note.md
 *.tar
 .output.json
 *.log
-examples
 .output
