@@ -44,6 +44,8 @@ zip({
 })
 ```
 
+设置`SUZIP_DEBUG=debug`环境变量以启动调试模式
+
 Command Line
 
 ```bash
