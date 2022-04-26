@@ -13,7 +13,7 @@ import zip from './zip'
   let configPath
   try {
     const { findUp } = await import('find-up')
-    configPath = await findUp(['.suziprc', '.suziprc.json'])
+    configPath = await findUp(['.suziprc', '.suziprc.json'], { stopAt: process.cwd() })
     config = configPath ? JSON.parse(await fs.readFile(configPath, 'utf-8')) : {}
   }
   catch (err: any) {

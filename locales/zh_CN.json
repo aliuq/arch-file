@@ -1,5 +1,6 @@
 {
   "Compression files or directories": "压缩文件或目录",
+  "Debug mode, print more information, modified by process.env.SUZIP_DEBUG environment variable": "调试模式，打印更多日志，由环境变量`process.env.SUZIP_DEBUG`控制",
   "Example 1": "1.压缩src目录下的所有文件到.output/dist.zip文件中",
   "Example 2": "2.压缩当前目录下所有除了node_modules和dist目录的文件到.output/dist.zip文件中",
   "Example 3": "3.指定ignore文件,压缩除匹配到的其他所有文件到.output/dist.zip文件中,注意,ignore文件中的规则需要补全,比如`node_modules`需要调整为`node_modules/**`",

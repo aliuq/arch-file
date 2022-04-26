@@ -16,14 +16,13 @@ const { __ } = y18n()
 
 type ZipOption = Pick<Option, 'context' | 'pattern' | 'cwd' | 'ignore' | 'ignoreFile' | 'prefix' | 'output' | 'dot'>
 
-const options: Record<'zip' & 'example' & keyof ZipOption, Options> = {
+const options: Record<'zip' & 'debug' & 'example' & keyof ZipOption, Options> = {
   cwd: {
     string: true,
     array: false,
     type: 'string',
     alias: 's',
     describe: __`Input Sources (only one can be specified)`,
-    // demandOption: true,
     coerce: (arg: string | string[]) => {
       if (Array.isArray(arg) && arg.length > 1)
         throw new Error(`[--cwd/-s]: ${__`Only one input source can be specified`}`)
@@ -39,7 +38,6 @@ const options: Record<'zip' & 'example' & keyof ZipOption, Options> = {
   output: {
     alias: 'o',
     describe: __`Output File Path`,
-    // demandOption: true,
     coerce: (arg: string | string[]) => {
       if (Array.isArray(arg) && arg.length > 1)
         throw new Error(`[--output/-o]: ${__`Only one output file can be specified`}`)
@@ -74,6 +72,10 @@ const options: Record<'zip' & 'example' & keyof ZipOption, Options> = {
     describe: __`Show examples`,
     boolean: true,
   },
+  debug: {
+    describe: __`Debug mode, print more information, modified by process.env.SUZIP_DEBUG environment variable`,
+    boolean: true,
+  },
 }
 
 const Zip: CommandModule<{}, ZipOption> = {
@@ -88,6 +90,9 @@ const Zip: CommandModule<{}, ZipOption> = {
       yargs.example(generateExamples() as any).showHelp()
       return
     }
+
+    if (argv.debug)
+      process.env.SUZIP_DEBUG = 'debug'
 
     if (argv.zip) {
       await zip(argv.zip)

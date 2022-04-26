@@ -1,58 +1,95 @@
 import path from 'path'
+import { performance } from 'perf_hooks'
 import fs from 'fs-extra'
 import { merge, pick } from 'lodash'
 // @ts-expect-error No type declaration
 import archiver from 'archiver'
 // @ts-expect-error No type declaration
 import byteSize from 'byte-size'
-import { green } from 'kolorist'
-import type { ArchiveOption, ArchiverTarOptions, ArchiverZipOptions, Format, Option, Source } from './types'
+import { cyan, dim, green } from 'kolorist'
 
-import { getAbsPath, log, slash } from './util'
+import type { ArchiveOption, ArchiverTarOptions, ArchiverZipOptions, Format, LogLevel, Option, Source } from './types'
+
+import { createLogger, getAbsPath, slash } from './util'
+
+let logger = createLogger(process.env.SUZIP_DEBUG as LogLevel)
 
 // Execute archive action
 export async function zip(options: Option | Option[]) {
+  logger = createLogger(process.env.SUZIP_DEBUG as LogLevel)
+  globalThis.__start_time = performance.now()
   const archiveOptions = await resolveOptions(options)
-  await Promise.all(archiveOptions.map(async (option) => {
-    // eslint-disable-next-line no-async-promise-executor
-    return new Promise(async (resolve, reject) => {
-      const { format, path: outputPath, filename, sources, archiverOption } = option
-      // Check output path
-      await fs.ensureDir(outputPath)
-      const dest = path.join(outputPath, filename)
-      // Write stream file. [see all](http://nodejs.cn/api/fs.html#fs_fs_createwritestream_path_options)
-      const output = fs.createWriteStream(dest)
-      const archive = archiver(format, archiverOption)
-      const files: any = []
+  logger.pretter(archiveOptions, { title: 'Task' })
+  for await (const option of archiveOptions)
+    await archive(option)
 
-      output.on('close', () => {
-        log(`Compressed done at ${green(`${green(dest)}`)} [${green(byteSize(archive.pointer()))}]`)
-        // log(files)
-        resolve(dest)
-      })
+  const time = Math.round(performance.now() - globalThis.__start_time)
+  logger.debugNormal()
+  logger.debug(`Total used ${cyan(`${time}ms`)}`)
+}
 
-      archive.on('error', (err: Error) => {
-        reject(err)
-      })
+// Archive function
+async function archive(option: ArchiveOption) {
+// eslint-disable-next-line no-async-promise-executor
+  return new Promise(async (resolve, reject) => {
+    globalThis.__start_once_time = performance.now()
+    const { format, path: outputPath, filename, sources, archiverOption } = option
+    // Check output path
+    await fs.ensureDir(outputPath)
+    const dest = path.join(outputPath, filename)
+    // Write stream file. [see all](http://nodejs.cn/api/fs.html#fs_fs_createwritestream_path_options)
+    const output = fs.createWriteStream(dest)
+    const archive = archiver(format, archiverOption)
+    const files: any = []
 
-      archive.on('entry', (entry: Record<string, any>) => {
-        files.push(slash(entry.name))
-      })
-
-      archive.pipe(output)
-
-      await Promise.all(sources.map(async (source: any) => {
-        const { pattern, globOption, globEntryData } = source
-        await archive.glob(pattern, globOption, globEntryData)
-      }))
-
-      await archive.finalize()
+    output.on('open', () => {
+      logger.debugNormal()
+      logger.debugNormal()
+      logger.group(cyan(`Archiving ${option.filename}`))
     })
-  }))
+
+    output.on('close', () => {
+      const time = Math.round(performance.now() - globalThis.__start_once_time)
+      const size = byteSize(archive.pointer())
+      logger.groupEnd()
+      logger.debugNormal()
+      logger.info(`Saved in ${green(dest)} / ${green(files.length)} files / ${green(size)} / ${green(`${time}ms`)}`)
+      resolve(dest)
+    })
+
+    archive.on('entry', (entry: Record<string, any>) => {
+      files.push({ name: slash(entry.name), source: slash(entry.sourcePath), size: entry.stats.size })
+    })
+
+    archive.on('progress', async (entry: Record<string, any>) => {
+      const currIndex = entry.entries.processed - 1
+      const file = files[currIndex]
+      logger.debugNormal(`${dim(currIndex + 1)} ${green(file.source)}  ${dim(byteSize(file.size))}`)
+    })
+
+    archive.on('error', (err: Error) => {
+      logger.error(err.message)
+      reject(err)
+    })
+
+    archive.on('warning', (err: Error) => {
+      logger.warn(err.message)
+    })
+
+    archive.pipe(output)
+
+    await Promise.all(sources.map(async (source: any) => {
+      const { pattern, globOption, globEntryData } = source
+      await archive.glob(pattern, globOption, globEntryData)
+    }))
+
+    await archive.finalize()
+  })
 }
 
 function resolveOptions(options: Option | Option[]): Promise<ArchiveOption[]> {
   options = Array.isArray(options) ? options : [options]
+  logger.debug(`Get ${green(options.length)} task`)
   const sourceAttr = ['pattern', 'cwd', 'ignore', 'ignoreFile', 'prefix', 'dot', 'globOption', 'globEntryData']
   // Priority: In Source > Out Source > Default
   // Iterate over the options and rebuild the options
@@ -197,4 +234,11 @@ function gitignoreToGlob(ignorePathArray: string[]) {
       result.push(pattern.endsWith('**') ? pattern : `${pattern}/**`)
       return result
     }, [])))
+}
+
+declare global {
+  // eslint-disable-next-line vars-on-top, no-var
+  var __start_time: number
+  // eslint-disable-next-line vars-on-top, no-var
+  var __start_once_time: number
 }

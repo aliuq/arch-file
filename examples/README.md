@@ -16,7 +16,7 @@ Basic
   "tar:gz": "suzip -s ../assets -o ./.output/dist.tar.gz",
   "zip:2": "suzip -s ../assets -p **/*.md -o ./.output/dist_md.zip",
   "zip:3": "suzip -s ../assets -i **/*.js -o ./.output/dist_ignore_js.zip",
-  "zip:4": "esno src/main.ts"
+  "zip:4": "cross-env SUZIP_DEBUG=debug esno src/main.ts"
  }
 }
 ```
@@ -25,6 +25,8 @@ Basic
 # pnpm -F basic [Script Name]
 
 pnpm -F basic dev
+pnpm -F basic dev --debug
+
 ```
 
 pkg

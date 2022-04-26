@@ -93,6 +93,8 @@ export interface Source {
   globEntryData?: EntryData & EntryZipData
 }
 
+export type LogLevel = 'error' | 'warn' | 'info' | 'debug'
+
 export interface Option extends Source {
   context?: string
   archiverOption?: ArchiverZipOptions | ArchiverTarOptions

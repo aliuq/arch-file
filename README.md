@@ -44,6 +44,8 @@ zip({
 })
 ```
 
+Set `SUZIP_DEBUG=debug` environment variable to start debug mode
+
 Command Line
 
 ```bash
@@ -60,9 +62,11 @@ Options:
   -p, --pattern     Regular expression matching input source file       [string]
   -i, --ignore      Regular expression to ignore output                  [array]
   -I, --ignoreFile  File path to ignore output                          [string]
-      --dot         Include dot files                                  [boolean]
+      --dot         Include files starting with the . symbol           [boolean]
       --zip         Zip option attribute in package.json file
       --example     Show examples                                      [boolean]
+      --debug       Debug mode, print more information, modified by
+                    `process.env.SUZIP_DEBUG` environment variable     [boolean]
   -h, --help        Show help                                          [boolean]
   -v, --version     Show version number                                [boolean]
 ```
