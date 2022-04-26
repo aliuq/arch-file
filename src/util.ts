@@ -100,7 +100,7 @@ function pretterInfo(data: any, opts: PretterOptions) {
       })
     }
     else {
-      console.log(`${gray(opts.title)}: ${data.map(d => blue(d)).join(' 、 ')}`)
+      console.log(`${gray(opts.title)}: ${data.map(d => blue(d)).join('、')}`)
     }
   }
   // Object
