@@ -10,7 +10,7 @@ importers:
       '@types/lodash-es': ^4.17.6
       '@types/yargs': ^17.0.10
       archiver: ^5.1.0
-      byte-size: ^7.0.0
+      byte-size: ^8.1.0
       eslint: ^8.14.0
       esno: ^0.14.1
       find-up: ^6.3.0
@@ -23,7 +23,7 @@ importers:
     dependencies:
       '@aliuq/eslint-config': 0.0.3_eslint@8.14.0
       archiver: 5.3.1
-      byte-size: 7.0.1
+      byte-size: 8.1.0
       find-up: 6.3.0
       fs-extra: 9.1.0
       kolorist: 1.5.1
@@ -833,9 +833,9 @@ packages:
     dependencies:
       semver: 7.3.7
 
-  /byte-size/7.0.1:
-    resolution: {integrity: sha512-crQdqyCwhokxwV1UyDzLZanhkugAgft7vt0qbbdt60C6Zf3CAiGmtUCylbtYwrU6loOUw3euGrNtW1J651ot1A==}
-    engines: {node: '>=10'}
+  /byte-size/8.1.0:
+    resolution: {integrity: sha512-FkgMTAg44I0JtEaUAvuZTtU2a2YDmBRbQxdsQNSMtLCjhG0hMcF5b1IMN9UjSCJaU4nvlj/GER7B9sI4nKdCgA==}
+    engines: {node: '>=12.17'}
     dev: false
 
   /call-bind/1.0.2:

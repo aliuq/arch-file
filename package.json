@@ -37,7 +37,7 @@
   "dependencies": {
     "@aliuq/eslint-config": "^0.0.3",
     "archiver": "^5.1.0",
-    "byte-size": "^7.0.0",
+    "byte-size": "^8.1.0",
     "find-up": "^6.3.0",
     "fs-extra": "^9.0.1",
     "kolorist": "^1.5.1",
