@@ -23,5 +23,5 @@ export function getAbsPath(p: string, context: string) {
 
 // convert `\/` to `path.sep`
 export function slash(p: string) {
-  return p.replace(/[\\\/]/g, path.sep)
+  return p.replace(/[\/]/g, path.sep)
 }
